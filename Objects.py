@@ -52,3 +52,15 @@ class Projectile(pygame.sprite.Sprite):
         else:
             self.cur_x = 0
         self.image = self.current_image.subsurface(pygame.Rect(self.cur_x, 0, 48, 48))
+
+
+class BadEssay(pygame.sprite.Sprite):
+    def __init__(self, rect):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("res/bad_essay.png")
+        self.rect = rect
+
+    def update(self):
+        self.rect.y += 4
+        if self.rect.y >= 430:
+            return True

@@ -1,6 +1,7 @@
 import pygame
 import UI
 import Objects
+import Extras
 
 
 class Menu:
@@ -32,6 +33,7 @@ class Game:
         self.timer = 30
         self.pimages = []
         self.pimages.append(pygame.image.load("res/projectile_1.png"))
+        self.spawner = Extras.ObjectSpawner()
 
     def update(self):
         self.timer += 1
@@ -50,6 +52,10 @@ class Game:
             if self.timer >= 12:
                 self.projectiles.add(Objects.Projectile(self.pimages, self.player.sprite.rect))
                 self.timer = 0
+
+        if self.spawner.update(self.projectiles):
+            return True
+        self.spawner.draw(self.surface)
 
         if key[pygame.K_ESCAPE]:
             return True
