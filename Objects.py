@@ -38,11 +38,17 @@ class Projectile(pygame.sprite.Sprite):
 
     def __init__(self, images, rect):
         pygame.sprite.Sprite.__init__(self)
-        self.current_image = images[0]
+        self.current_image = random.choice(images)
         self.image = self.current_image.subsurface(pygame.Rect(0, 0, 48, 48))
         self.rect = self.image.get_rect()
         self.rect.y = 400
         self.rect.x = rect.x
+        self.cur_x = 0
 
     def update(self):
         self.rect.y -= 10
+        if self.cur_x+48 < self.current_image.get_rect().w:
+            self.cur_x += 48
+        else:
+            self.cur_x = 0
+        self.image = self.current_image.subsurface(pygame.Rect(self.cur_x, 0, 48, 48))
