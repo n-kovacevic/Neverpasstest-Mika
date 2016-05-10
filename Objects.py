@@ -1,4 +1,5 @@
 import pygame
+import random
 
 
 class Mika(pygame.sprite.Sprite):
@@ -7,7 +8,7 @@ class Mika(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("res/mika.png")
         self.rect = self.image.get_rect()
-        self.rect.y = 420
+        self.rect.y = 436
         self.rect.x = 290
         self.speed = 0
 
@@ -32,6 +33,16 @@ class Mika(pygame.sprite.Sprite):
                 self.speed = 0
         self.rect.x += self.speed
 
-        if key[pygame.K_ESCAPE]:
-            return True
-        return False
+
+class Projectile(pygame.sprite.Sprite):
+
+    def __init__(self, images, rect):
+        pygame.sprite.Sprite.__init__(self)
+        self.current_image = images[0]
+        self.image = self.current_image.subsurface(pygame.Rect(0, 0, 48, 48))
+        self.rect = self.image.get_rect()
+        self.rect.y = 400
+        self.rect.x = rect.x
+
+    def update(self):
+        self.rect.y -= 10

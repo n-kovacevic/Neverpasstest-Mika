@@ -11,6 +11,7 @@ def main():
     state = 0
     menu = State.Menu(screen)
     game = None
+    clock = pygame.time.Clock()
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -25,6 +26,6 @@ def main():
                 menu = State.Menu(screen)
                 state = 0
         pygame.display.update()
-        pygame.time.delay(16)
+        clock.tick(30)
 
 main()
