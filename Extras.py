@@ -1,6 +1,7 @@
 import random
 import pygame
 import Objects
+import ScoreManager
 
 
 def point_col(position, rect):
@@ -24,19 +25,32 @@ class ObjectSpawner():
         self.max_timer = 180
         self.min_timer = 90
         self.bad_group = pygame.sprite.Group()
+        self.score = 0
+        self.font = pygame.font.SysFont("Impact", 32)
+        self.font_color = (220, 220, 220)
+        self.score_display = self.font.render(str(self.score), 1, self.font_color)
 
     def update(self, projectiles):
         for essay in self.bad_group.sprites():
             if essay.update():
+                ScoreManager.add_score(ScoreManager.Score("Test Name", self.score))
                 return True
-        pygame.sprite.groupcollide(projectiles, self.bad_group, True, True)
+
+        if pygame.sprite.groupcollide(projectiles, self.bad_group, True, True):
+            self.score += 5
+
         self.spawn_timer -= 1
         if self.spawn_timer <= 0:
             self.spawn_essay()
+
+        self.score_display = self.font.render(str(self.score), 1, self.font_color)
         return False
 
     def draw(self, surface):
         self.bad_group.draw(surface)
+        score_rect = surface.get_rect()
+        score_rect.x += 10
+        surface.blit(self.score_display, score_rect )
 
     def spawn_essay(self):
         rect = pygame.Rect(self.spawn_distance, -60, 60, 60)

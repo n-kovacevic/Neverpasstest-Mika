@@ -1,4 +1,5 @@
 import pygame, sys
+import ScoreManager
 from pygame.locals import *
 
 import State
@@ -12,6 +13,9 @@ def main():
     menu = State.Menu(screen)
     game = None
     clock = pygame.time.Clock()
+
+    ScoreManager.load_scores()
+
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
