@@ -12,6 +12,7 @@ def main():
     state = 0
     menu = State.Menu(screen)
     game = None
+    hs = None
     clock = pygame.time.Clock()
 
     ScoreManager.load_scores()
@@ -26,7 +27,14 @@ def main():
                 game = State.Game(screen)
                 state = 1
         elif state == 1:
-            if game.update():
+            score = game.update()
+            if score:
+                hs = State.HighScore(score, screen)
+                state = 2
+        elif state == 2:
+            score = hs.update()
+            if score:
+                ScoreManager.add_score(score)
                 menu = State.Menu(screen)
                 state = 0
         pygame.display.update()
