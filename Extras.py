@@ -1,6 +1,6 @@
 import random
 import pygame
-import Objects
+import objects
 
 
 def point_col(position, rect):
@@ -52,7 +52,7 @@ class ObjectSpawner():
 
     def spawn_essay(self):
         rect = pygame.Rect(self.spawn_distance, -60, 60, 60)
-        sprite = Objects.BadEssay(rect)
+        sprite = objects.BadEssay(rect)
         self.bad_group.add(sprite)
         if self.max_timer > 20:
             self.max_timer -= 5

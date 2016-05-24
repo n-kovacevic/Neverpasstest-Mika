@@ -1,8 +1,8 @@
 import pygame
-import UI
-import Objects
-import Extras
-import ScoreManager
+import ui
+import objects
+import extras
+import score_manager
 
 
 class Menu:
@@ -12,7 +12,7 @@ class Menu:
         self.surface = surface
         self.background = pygame.image.load("res/background.png")
 
-        button_play = UI.PlayButton()
+        button_play = ui.PlayButton()
         self.sprites.append(button_play)
 
     def update(self):
@@ -29,12 +29,12 @@ class Game:
     def __init__(self, surface):
         self.surface = surface
         self.background = pygame.image.load("res/background.png")
-        self.player = pygame.sprite.GroupSingle(Objects.Mika())
+        self.player = pygame.sprite.GroupSingle(objects.Mika())
         self.projectiles = pygame.sprite.Group()
         self.timer = 30
         self.pimages = []
         self.pimages.append(pygame.image.load("res/projectile_1.png"))
-        self.spawner = Extras.ObjectSpawner()
+        self.spawner = extras.ObjectSpawner()
 
     def update(self):
         self.timer += 1
@@ -51,7 +51,7 @@ class Game:
 
         if key[pygame.K_SPACE]:
             if self.timer >= 12:
-                self.projectiles.add(Objects.Projectile(self.pimages, self.player.sprite.rect))
+                self.projectiles.add(objects.Projectile(self.pimages, self.player.sprite.rect))
                 self.timer = 0
 
         self.spawner.draw(self.surface)
@@ -176,7 +176,7 @@ class HighScore:
             self.name = self.name[0:len(self.name)-1]
             pygame.time.wait(80)
         if key[pygame.K_RETURN]:
-            return ScoreManager.Score(self.name, self.score)
+            return score_manager.Score(self.name, self.score)
 
         return False
 

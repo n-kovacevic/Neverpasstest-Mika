@@ -1,8 +1,8 @@
 import pygame, sys
-import ScoreManager
+import score_manager
 from pygame.locals import *
 
-import State
+import state
 
 
 def main():
@@ -10,12 +10,12 @@ def main():
     screen = pygame.display.set_mode((640,480))
     pygame.display.set_caption("Neverpasstest Mika")
     state = 0
-    menu = State.Menu(screen)
+    menu = state.Menu(screen)
     game = None
     hs = None
     clock = pygame.time.Clock()
 
-    ScoreManager.load_scores()
+    score_manager.load_scores()
 
     while True:
         for event in pygame.event.get():
@@ -24,22 +24,22 @@ def main():
                 sys.exit()
         if state == 0:
             if menu.update():
-                game = State.Game(screen)
+                game = state.Game(screen)
                 state = 1
         elif state == 1:
             score = game.update()
             if score >= 0:
-                if ScoreManager.is_highscore(score):
-                    hs = State.HighScore(score, screen)
+                if score_manager.is_highscore(score):
+                    hs = state.HighScore(score, screen)
                     state = 2
                 else:
-                    menu = State.Menu(screen)
+                    menu = state.Menu(screen)
                     state = 0
         elif state == 2:
             score = hs.update()
             if score:
-                ScoreManager.add_score(score)
-                menu = State.Menu(screen)
+                score_manager.add_score(score)
+                menu = state.Menu(screen)
                 state = 0
         pygame.display.update()
         clock.tick(30)

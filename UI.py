@@ -1,5 +1,5 @@
 import pygame
-import Extras
+import extras
 
 
 class PlayButton(pygame.sprite.Sprite):
@@ -16,7 +16,7 @@ class PlayButton(pygame.sprite.Sprite):
         self.rect.y = 280
 
     def update(self):
-        if Extras.point_col(pygame.mouse.get_pos(), self.rect):
+        if extras.point_col(pygame.mouse.get_pos(), self.rect):
             self.image = self.hover_image
             if pygame.mouse.get_pressed() == (1, 0, 0):
                 return True
