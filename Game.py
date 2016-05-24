@@ -28,9 +28,13 @@ def main():
                 state = 1
         elif state == 1:
             score = game.update()
-            if score:
-                hs = State.HighScore(score, screen)
-                state = 2
+            if score >= 0:
+                if ScoreManager.is_highscore(score):
+                    hs = State.HighScore(score, screen)
+                    state = 2
+                else:
+                    menu = State.Menu(screen)
+                    state = 0
         elif state == 2:
             score = hs.update()
             if score:

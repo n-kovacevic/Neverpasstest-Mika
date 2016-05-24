@@ -57,7 +57,7 @@ class Game:
         self.spawner.draw(self.surface)
 
         if key[pygame.K_ESCAPE]:
-            return True
+            return self.spawner.score
 
         return self.spawner.update(self.projectiles)
 
@@ -79,7 +79,7 @@ class HighScore:
         self.score_rect.left = 168
         self.score_rect.top = 183
         self.released = tuple([0 for i in range(323)])
-        self.pressed = False
+        self.pressed = [False for i in range(323)]
 
     def update(self):
         self.surface.fill((255, 255, 255))
@@ -89,90 +89,92 @@ class HighScore:
 
         key = pygame.key.get_pressed()
         if key == self.released:
-            self.pressed = False
+            self.pressed  = [False for i in range(323)]
             return False
-        if key[pygame.K_q] and not self.pressed:
+        if key[pygame.K_q] and not self.pressed[pygame.K_q]:
             self.name += "Q"
-            self.pressed = True
-        elif key[pygame.K_w] and not self.pressed:
+            self.pressed[pygame.K_q] = True
+        elif key[pygame.K_w] and not self.pressed[pygame.K_w]:
             self.name += "W"
-            self.pressed = True
-        elif key[pygame.K_e] and not self.pressed:
+            self.pressed[pygame.K_w] = True
+        elif key[pygame.K_e] and not self.pressed[pygame.K_e]:
             self.name += "E"
-            self.pressed = True
-        elif key[pygame.K_r] and not self.pressed:
+            self.pressed[pygame.K_e] = True
+        elif key[pygame.K_r] and not self.pressed[pygame.K_r]:
             self.name += "R"
-            self.pressed = True
-        elif key[pygame.K_t] and not self.pressed:
+            self.pressed[pygame.K_r] = True
+        elif key[pygame.K_t] and not self.pressed[pygame.K_t]:
             self.name += "T"
-            self.pressed = True
-        elif key[pygame.K_z] and not self.pressed:
+            self.pressed[pygame.K_t] = True
+        elif key[pygame.K_z] and not self.pressed[pygame.K_z]:
             self.name += "Z"
-            self.pressed = True
-        elif key[pygame.K_u] and not self.pressed:
+            self.pressed[pygame.K_z] = True
+        elif key[pygame.K_u] and not self.pressed[pygame.K_u]:
             self.name += "U"
-            self.pressed = True
-        elif key[pygame.K_i] and not self.pressed:
+            self.pressed[pygame.K_u] = True
+        elif key[pygame.K_i] and not self.pressed[pygame.K_i]:
             self.name += "I"
-            self.pressed = True
-        elif key[pygame.K_o] and not self.pressed:
+            self.pressed[pygame.K_i] = True
+        elif key[pygame.K_o] and not self.pressed[pygame.K_o]:
             self.name += "O"
-            self.pressed = True
-        elif key[pygame.K_p] and not self.pressed:
+            self.pressed[pygame.K_o] = True
+        elif key[pygame.K_p] and not self.pressed[pygame.K_p]:
             self.name += "P"
-            self.pressed = True
-        elif key[pygame.K_a] and not self.pressed:
+            self.pressed[pygame.K_p] = True
+        elif key[pygame.K_a] and not self.pressed[pygame.K_a]:
             self.name += "A"
-            self.pressed = True
-        elif key[pygame.K_s] and not self.pressed:
+            self.pressed[pygame.K_a] = True
+        elif key[pygame.K_s] and not self.pressed[pygame.K_s]:
             self.name += "S"
-            self.pressed = True
-        elif key[pygame.K_d] and not self.pressed:
+            self.pressed[pygame.K_s] = True
+        elif key[pygame.K_d] and not self.pressed[pygame.K_d]:
             self.name += "D"
-            self.pressed = True
-        elif key[pygame.K_f] and not self.pressed:
+            self.pressed[pygame.K_d] = True
+        elif key[pygame.K_f] and not self.pressed[pygame.K_f]:
             self.name += "F"
-            self.pressed = True
-        elif key[pygame.K_g] and not self.pressed:
+            self.pressed[pygame.K_f] = True
+        elif key[pygame.K_g] and not self.pressed[pygame.K_g]:
             self.name += "G"
-            self.pressed = True
-        elif key[pygame.K_h] and not self.pressed:
+            self.pressed[pygame.K_g] = True
+        elif key[pygame.K_h] and not self.pressed[pygame.K_h]:
             self.name += "H"
-            self.pressed = True
-        elif key[pygame.K_j] and not self.pressed:
+            self.pressed[pygame.K_h] = True
+        elif key[pygame.K_j] and not self.pressed[pygame.K_j]:
             self.name += "J"
-            self.pressed = True
-        elif key[pygame.K_k] and not self.pressed:
+            self.pressed[pygame.K_j] = True
+        elif key[pygame.K_k] and not self.pressed[pygame.K_k]:
             self.name += "K"
-            self.pressed = True
-        elif key[pygame.K_l] and not self.pressed:
+            self.pressed[pygame.K_k] = True
+        elif key[pygame.K_l] and not self.pressed[pygame.K_l]:
             self.name += "L"
-            self.pressed = True
-        elif key[pygame.K_y] and not self.pressed:
+            self.pressed[pygame.K_l] = True
+        elif key[pygame.K_y] and not self.pressed[pygame.K_y]:
             self.name += "Y"
-            self.pressed = True
-        elif key[pygame.K_x] and not self.pressed:
+            self.pressed[pygame.K_y] = True
+        elif key[pygame.K_x] and not self.pressed[pygame.K_x]:
             self.name += "X"
-            self.pressed = True
-        elif key[pygame.K_c] and not self.pressed:
+            self.pressed[pygame.K_x] = True
+        elif key[pygame.K_c] and not self.pressed[pygame.K_c]:
             self.name += "C"
-            self.pressed = True
-        elif key[pygame.K_v] and not self.pressed:
+            self.pressed[pygame.K_c] = True
+        elif key[pygame.K_v] and not self.pressed[pygame.K_v]:
             self.name += "V"
-            self.pressed = True
-        elif key[pygame.K_b] and not self.pressed:
-            self.pressed = True
+            self.pressed[pygame.K_v] = True
+        elif key[pygame.K_b] and not self.pressed[pygame.K_b]:
             self.name += "B"
-        elif key[pygame.K_n] and not self.pressed:
+            self.pressed[pygame.K_b] = True
+        elif key[pygame.K_n] and not self.pressed[pygame.K_n]:
             self.name += "N"
-            self.pressed = True
-        elif key[pygame.K_m] and not self.pressed:
+            self.pressed[pygame.K_n] = True
+        elif key[pygame.K_m] and not self.pressed[pygame.K_m]:
             self.name += "M"
-            self.pressed = True
-        elif key[pygame.K_BACKSPACE] and not self.pressed:
+            self.pressed[pygame.K_m] = True
+        elif key[pygame.K_SPACE] and not self.pressed[pygame.K_SPACE]:
+            self.name += " "
+            self.pressed[pygame.K_SPACE] = True
+        elif key[pygame.K_BACKSPACE]:
             self.name = self.name[0:len(self.name)-1]
-            pygame.time.wait(40)
-
+            pygame.time.wait(80)
         if key[pygame.K_RETURN]:
             return ScoreManager.Score(self.name, self.score)
 

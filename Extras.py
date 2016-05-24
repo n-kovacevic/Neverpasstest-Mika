@@ -42,7 +42,7 @@ class ObjectSpawner():
             self.spawn_essay()
 
         self.score_display = self.font.render(str(self.score), 1, self.font_color)
-        return False
+        return -1
 
     def draw(self, surface):
         self.bad_group.draw(surface)
