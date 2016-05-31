@@ -13,6 +13,7 @@ def main():
     menu = state.Menu(screen)
     game = None
     hs = None
+    bs = None
     clock = pygame.time.Clock()
 
     score_manager.load_scores()
@@ -23,9 +24,13 @@ def main():
                 pygame.quit()
                 sys.exit()
         if current_state == 0:
-            if menu.update():
+            selection = menu.update()
+            if selection == 1:
                 game = state.Game(screen)
                 current_state = 1
+            elif selection == 2:
+                bs = state.BestScores(screen)
+                current_state = 3
         elif current_state == 1:
             score = game.update()
             if score >= 0:
@@ -39,6 +44,10 @@ def main():
             score = hs.update()
             if score:
                 score_manager.add_score(score)
+                menu = state.Menu(screen)
+                current_state = 0
+        elif current_state == 3:
+            if bs.update():
                 menu = state.Menu(screen)
                 current_state = 0
         pygame.display.update()

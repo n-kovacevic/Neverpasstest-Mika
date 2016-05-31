@@ -43,7 +43,7 @@ def save_scores():
 
 def load_scores():
     global scores
-    with open("res/scores", "w+") as file:
+    with open("res/scores", "r+") as file:
         lines = file.readlines()
         for i in range(0, len(lines), 2):
             name = lines[i]

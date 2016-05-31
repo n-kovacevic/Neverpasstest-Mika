@@ -11,17 +11,21 @@ class Menu:
     def __init__(self, surface):
         self.surface = surface
         self.background = pygame.image.load("res/background.png")
-
+        self.sprites = []
         button_play = ui.PlayButton()
         self.sprites.append(button_play)
+
+        button_hs = ui.ScoreButton()
+        self.sprites.append(button_hs)
 
     def update(self):
         self.surface.fill((255, 255, 255))
         self.surface.blit(self.background, self.surface.get_rect())
         for sprite in self.sprites:
-            if sprite.update():
-                return True
-            self.surface.blit(sprite.image,sprite.rect)
+            selection = sprite.update()
+            if selection:
+                return selection
+            self.surface.blit(sprite.image, sprite.rect)
         return False
 
 
@@ -186,3 +190,39 @@ class HighScore:
             self.name = self.name[:len(self.name) - 1]
             self.score_display = self.font.render(self.name, 1, self.font_color)
         self.surface.blit(self.score_display, self.score_rect)
+
+
+class BestScores:
+    def __init__(self, surface):
+        self.background = pygame.image.load("res/background.png")
+        self.surface = surface
+        self.font = pygame.font.SysFont("Impact", 32)
+        self.font_color = (20, 20, 20)
+        self.scores = []
+        self.names = []
+        self.score_rects = []
+        self.name_rects = []
+        self.ret_button = ui.ReturnButton()
+        x = 120
+        y = 60
+        score_width = 360
+        for i in range(len(score_manager.scores)):
+            score = str(score_manager.scores[i].score)
+            name = score_manager.scores[i].name
+            self.scores.append(self.font.render(score, 1, self.font_color))
+            self.names.append(self.font.render(name, 1, self.font_color))
+            ws, hs = self.font.size(score)
+            wn, _ = self.font.size(name)
+            width = score_width - wn
+            self.score_rects.append(pygame.Rect(x, y+(i*48), ws, hs))
+            self.name_rects.append(pygame.Rect(x + width, y + (i*48), wn, hs))
+
+    def update(self):
+        self.surface.fill((255, 255, 255))
+        self.surface.blit(self.background, self.surface.get_rect())
+        for i in range(len(self.scores)):
+            self.surface.blit(self.scores[i], self.score_rects[i])
+            self.surface.blit(self.names[i], self.name_rects[i])
+        self.surface.blit(self.ret_button.image, self.ret_button.rect)
+        return self.ret_button.update()
+
