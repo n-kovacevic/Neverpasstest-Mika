@@ -101,7 +101,6 @@ class HighScore:
         self.font_color = (200, 200, 200)
         self.score_display = self.font.render(str(self.score), 1, self.font_color)
         ys_text = "Your score: "+ str(self.score)
-        print(ys_text)
         ys_width, ys_height = self.font.size(ys_text)
         self.your_score_text = self.font.render(ys_text, 1, self.font_color)
         self.your_score_rect = pygame.Rect(int((640-ys_width)/2), 120, ys_width, ys_height)
@@ -110,6 +109,8 @@ class HighScore:
         self.score_rect.top = 183
         self.released = tuple([0 for i in range(323)])
         self.pressed = [False for i in range(323)]
+        self.submit = ui.SubmitButton()
+        self.last_backspace = 0
 
     def update(self):
         self.surface.fill((255, 255, 255))
@@ -117,6 +118,13 @@ class HighScore:
         self.surface.blit(self.your_score_text, self.your_score_rect)
         self.surface.blit(self.text_box, self.text_box_rect)
         self.draw()
+
+        if self.submit.update():
+            return score_manager.Score(self.name, self.score)
+        self.surface.blit(self.submit.image, self.submit.rect)
+
+        if self.last_backspace > 0:
+            self.last_backspace -= 1
 
         key = pygame.key.get_pressed()
         if key == self.released:
@@ -203,9 +211,10 @@ class HighScore:
         elif key[pygame.K_SPACE] and not self.pressed[pygame.K_SPACE]:
             self.name += " "
             self.pressed[pygame.K_SPACE] = True
-        elif key[pygame.K_BACKSPACE]:
+        elif key[pygame.K_BACKSPACE] and self.last_backspace == 0:
             self.name = self.name[0:len(self.name)-1]
-            pygame.time.wait(80)
+            self.last_backspace = 4
+
         if key[pygame.K_RETURN]:
             return score_manager.Score(self.name, self.score)
 

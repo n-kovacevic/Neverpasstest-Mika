@@ -43,10 +43,14 @@ def save_scores():
 
 def load_scores():
     global scores
-    with open("res/scores", "r+") as file:
+    try:
+        file = open("res/scores", "r+")
         lines = file.readlines()
         for i in range(0, len(lines), 2):
             name = lines[i]
             name = name.replace("\n", "")
             score = int(lines[i+1])
             scores.append(Score(name, score))
+        file.close()
+    except:
+        print("No scores found.")
