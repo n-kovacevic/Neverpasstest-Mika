@@ -79,6 +79,11 @@ class HighScore:
         self.font = pygame.font.SysFont("Impact", 32)
         self.font_color = (200, 200, 200)
         self.score_display = self.font.render(str(self.score), 1, self.font_color)
+        ys_text = "Your score: "+ str(self.score)
+        print(ys_text)
+        ys_width, ys_height = self.font.size(ys_text)
+        self.your_score_text = self.font.render(ys_text, 1, self.font_color)
+        self.your_score_rect = pygame.Rect(int((640-ys_width)/2), 120, ys_width, ys_height)
         self.score_rect = self.score_display.get_rect()
         self.score_rect.left = 168
         self.score_rect.top = 183
@@ -88,6 +93,7 @@ class HighScore:
     def update(self):
         self.surface.fill((255, 255, 255))
         self.surface.blit(self.background, self.surface.get_rect())
+        self.surface.blit(self.your_score_text, self.your_score_rect)
         self.surface.blit(self.text_box, self.text_box_rect)
         self.draw()
 
@@ -225,4 +231,3 @@ class BestScores:
             self.surface.blit(self.names[i], self.name_rects[i])
         self.surface.blit(self.ret_button.image, self.ret_button.rect)
         return self.ret_button.update()
-
