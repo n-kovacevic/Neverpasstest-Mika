@@ -12,7 +12,7 @@ class PlayButton(pygame.sprite.Sprite):
         self.image = self.normal_image
         self.rect = self.image.get_rect()
 
-        self.rect.x = 200
+        self.rect.x = 207
         self.rect.y = 280
 
     def update(self):
@@ -35,7 +35,7 @@ class ScoreButton(pygame.sprite.Sprite):
         self.image = self.normal_image
         self.rect = self.image.get_rect()
 
-        self.rect.x = 200
+        self.rect.x = 207
         self.rect.y = 340
 
     def update(self):
@@ -57,7 +57,7 @@ class ReturnButton(pygame.sprite.Sprite):
         self.image = self.normal_image
         self.rect = self.image.get_rect()
 
-        self.rect.x = 200
+        self.rect.x = 207
         self.rect.y = 400
 
     def update(self):
