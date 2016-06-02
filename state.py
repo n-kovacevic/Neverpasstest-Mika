@@ -209,8 +209,8 @@ class BestScores:
         self.score_rects = []
         self.name_rects = []
         self.ret_button = ui.ReturnButton()
-        x = 120
-        y = 60
+        x = 140
+        y = 70
         score_width = 360
         for i in range(len(score_manager.scores)):
             score = str(score_manager.scores[i].score)
