@@ -3,6 +3,7 @@ import ui
 import objects
 import extras
 import score_manager
+import random
 
 
 class Menu:
@@ -39,6 +40,14 @@ class Game:
         self.pimages = []
         self.pimages.append(pygame.image.load("res/projectile_1.png"))
         self.spawner = extras.ObjectSpawner()
+        self.prints = []
+        self.prints.append(pygame.image.load("res/print_1.png"))
+        self.prints.append(pygame.image.load("res/print_2.png"))
+        self.prints.append(pygame.image.load("res/print_3.png"))
+        self.prints.append(pygame.image.load("res/print_4.png"))
+        self.prints.append(pygame.image.load("res/print_5.png"))
+        self.print_timer = 0
+        self.printimage = None
 
     def update(self):
         self.timer += 1
@@ -50,6 +59,13 @@ class Game:
 
         self.projectiles.update()
         self.projectiles.draw(self.surface)
+
+        if self.print_timer < 20 and self.printimage:
+            image_rect = self.printimage.get_rect()
+            player_rect = self.player.sprites()[0].rect
+            self.printrect = pygame.Rect(player_rect.x+20, player_rect.y-50, image_rect.w, image_rect.h)
+            self.surface.blit(self.printimage, self.printrect)
+            self.print_timer += 1
 
         key = pygame.key.get_pressed()
 
@@ -63,7 +79,12 @@ class Game:
         if key[pygame.K_ESCAPE]:
             return self.spawner.score
 
-        return self.spawner.update(self.projectiles)
+        hits = self.spawner.update(self.projectiles)
+
+        if hits == -2:
+            self.printimage = random.choice(self.prints)
+            self.print_timer = 0
+        return hits
 
 
 class HighScore:

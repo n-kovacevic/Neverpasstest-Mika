@@ -36,6 +36,7 @@ class ObjectSpawner():
 
         if pygame.sprite.groupcollide(projectiles, self.bad_group, True, True):
             self.score += 5
+            return -2
 
         self.spawn_timer -= 1
         if self.spawn_timer <= 0:
